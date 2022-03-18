@@ -1,28 +1,25 @@
 package objetos;
 
-import java.util.ArrayList;
-
 public class Visa extends Tarjeta {
-	private double descuento = 0.02;
+
+	private double descuento = 0.03;
 
 	public Visa(long numero) {
 		super(numero);
-
 	}
 
-	public double calcularGasto(ArrayList<ItemMenu> items) {
+	public double calcularGasto(double montoBebidas, double montoPlatos) {
 
-		double gastoTotal = 0;
-		double gastoBebida = 0;
-		for (ItemMenu i : items) {
-			if (i.esBebida())
-				gastoBebida = +i.precioItem();
-			else
-				gastoTotal = +i.precioItem();
-		}
+		double gastoTotal = (montoBebidas + montoPlatos) - this.calcularDescuento(montoBebidas)
+				+ this.sumarPropina(montoBebidas + montoPlatos);
 
-		gastoTotal = +this.calcularDescuento(gastoBebida);
 		return gastoTotal;
 	}
 
+	protected double calcularDescuento(double monto) {
+
+		double montoDescuento = monto * descuento;
+
+		return montoDescuento;
+	}
 }

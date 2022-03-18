@@ -1,7 +1,5 @@
 package objetos;
 
-import java.util.ArrayList;
-
 public class ComarcaPlus extends Tarjeta {
 
 	private double descuento = 0.02;
@@ -10,12 +8,18 @@ public class ComarcaPlus extends Tarjeta {
 		super(numero);
 	}
 
-	public double calcularGasto(ArrayList<ItemMenu> items) {
-		double gastoTotal = 0;
-		for (ItemMenu i : items) {
-			gastoTotal = +i.precioItem();
-		}
-		gastoTotal = +this.calcularDescuento(gastoTotal) + this.sumarPropina(gastoTotal);
+	public double calcularGasto(double montoBebidas, double montoPlatos) {
+
+		double gastoTotal = montoBebidas + montoPlatos - this.calcularDescuento(montoBebidas + montoPlatos)
+				+ this.sumarPropina(montoBebidas + montoPlatos);
+
 		return gastoTotal;
+	}
+
+	protected double calcularDescuento(double monto) {
+
+		double montoDescuento = monto * descuento;
+
+		return montoDescuento;
 	}
 }

@@ -1,8 +1,7 @@
 package objetos;
 
-import java.util.ArrayList;
-
 public class Tarjeta {
+
 	private long numero;
 	private double descuento;
 
@@ -10,35 +9,36 @@ public class Tarjeta {
 		this.numero = numero;
 	}
 
-	public double calcularGasto(ArrayList<ItemMenu> items) {
+	protected double calcularGasto(double montoBebidas, double montoPlatos) {
 
-		double gastoTotal = 0;
+		double gastoTotal = montoBebidas + montoPlatos;
+		gastoTotal = gastoTotal + this.sumarPropina(gastoTotal);
 
-		for (ItemMenu i : items) {
-
-			gastoTotal = +i.precioItem();
-		}
-		gastoTotal = +this.sumarPropina(gastoTotal);
 		return gastoTotal;
 	}
 
 	protected double sumarPropina(double montoTotal) {
+
 		if (montoTotal <= 5000)
-			this.calcularPropina(montoTotal, 0.02);
+			return this.calcularPropina(montoTotal, 0.02);
 		else if (montoTotal < 10000)
-			this.calcularPropina(montoTotal, 0.03);
+			return this.calcularPropina(montoTotal, 0.03);
 		else
-			this.calcularPropina(montoTotal, 0.05);
-		return montoTotal;
+			return this.calcularPropina(montoTotal, 0.05);
 	}
 
 	protected double calcularDescuento(double monto) {
-		return monto = -(monto * this.descuento);
+
+		double montoDescuento = monto * descuento;
+
+		return montoDescuento;
 	}
 
 	protected double calcularPropina(double monto, double porcentaje) {
-		monto = +(monto * porcentaje);
-		return monto;
+
+		double propina = monto * porcentaje;
+
+		return propina;
 	}
 
 }
